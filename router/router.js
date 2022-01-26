@@ -1,29 +1,38 @@
 const router = require('express').Router();
 
+const { nanoid } = require('nanoid');
+const yup = require('yup')
 
 
 
-//specific.....
+
+//post.....
+const schema = yup.object().shape({
+    slug: yup.string().trim().matches(/[\w\-]/i),
+    url: yup.string().trim().url().required(),
+})
 
 
-// router.get('/:id', (req, res) => {
-//     //TODO: redirect to url
-// })
+router.post('/url', async (req, res, next) => {
+    //Todo: create a shortUrl
+    let { slug, url } = req.body;
+    try {
 
+        await schema.validate({
+            slug,
+            url
+        })
 
-// //post.....
+        if (!slug) {
+            slug = nanoid(5);
+        }
+        slug = slug.toLowerCase();
+        res.json({ slug, url })
+    } catch (error) {
+        next(error)
+    }
+});
 
-// router.post('/url', (req, res) => {
-//     //Todo: create a shortUrl
-// });
-
-
-// //...specific url...
-
-
-// router.get('/url/:id', (req, res) => {
-
-// })
 
 
 

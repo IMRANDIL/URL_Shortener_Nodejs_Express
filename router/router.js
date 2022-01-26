@@ -6,24 +6,24 @@ const router = require('express').Router();
 //specific.....
 
 
-router.get('/:id', (req, res) => {
-    //TODO: redirect to url
-})
+// router.get('/:id', (req, res) => {
+//     //TODO: redirect to url
+// })
 
 
-//post.....
+// //post.....
 
-router.post('/url', (req, res) => {
-    //Todo: create a shortUrl
-});
-
-
-//...specific url...
+// router.post('/url', (req, res) => {
+//     //Todo: create a shortUrl
+// });
 
 
-router.get('/url/:id', (req, res) => {
+// //...specific url...
 
-})
+
+// router.get('/url/:id', (req, res) => {
+
+// })
 
 
 

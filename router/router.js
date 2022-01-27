@@ -10,7 +10,7 @@ const db = monk(process.env.URI);
 const urls = db.get('urls');
 
 
-urls.createIndex('name')
+urls.createIndex({ slug: 1 }, { unique: true })
 
 
 
@@ -65,7 +65,20 @@ router.post('/url', async (req, res, next) => {
 });
 
 
+//get....
 
+router.get('/:id', async (req, res, next) => {
+    const { id: slug } = req.params;
+    try {
+        const url = await urls.findOne({ slug });
+        if (url) {
+            return res.redirect(url.url)
+        }
+        res.redirect(`/?error=${slug} not found`)
+    } catch (error) {
+        res.redirect(`/?error=Link not Found`)
+    }
+})
 
 
 

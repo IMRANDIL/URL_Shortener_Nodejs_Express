@@ -9,7 +9,8 @@ const db = monk(process.env.URI);
 
 const urls = db.get('urls');
 
-urls.createIndex('name');
+
+urls.createIndex('name')
 
 
 
@@ -42,7 +43,7 @@ router.post('/url', async (req, res, next) => {
         } else {
             const exitsting = await urls.findOne({ slug });
             if (exitsting) {
-                throw new Error('Slug in Use.😚')
+                throw new Error('Slug in Use.😅')
             }
         }
         slug = slug.toLowerCase();
@@ -58,6 +59,7 @@ router.post('/url', async (req, res, next) => {
 
         res.json(created)
     } catch (error) {
+
         next(error)
     }
 });

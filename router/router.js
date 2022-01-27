@@ -3,6 +3,20 @@ const router = require('express').Router();
 const { nanoid } = require('nanoid');
 const yup = require('yup')
 
+const monk = require('monk')
+const db = monk(process.env.URI);
+
+
+const urls = db.get('urls');
+
+urls.createIndex('name');
+
+
+
+
+
+
+
 
 
 
@@ -25,9 +39,24 @@ router.post('/url', async (req, res, next) => {
 
         if (!slug) {
             slug = nanoid(5);
+        } else {
+            const exitsting = await urls.findOne({ slug });
+            if (exitsting) {
+                throw new Error('Slug in Use.😚')
+            }
         }
         slug = slug.toLowerCase();
-        res.json({ slug, url })
+
+        const newUrl = {
+            url,
+            slug,
+
+
+        };
+
+        const created = await urls.insert(newUrl);
+
+        res.json(created)
     } catch (error) {
         next(error)
     }

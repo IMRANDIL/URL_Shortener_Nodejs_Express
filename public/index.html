@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://ez-css.now.sh">
     <title>URL_SHORTENER</title>
 </head>
 
@@ -22,6 +23,9 @@
 
             <button type="submit">Create</button>
         </form>
+        <pre v-if="created">
+            {{JSON.stringify(created,null, 2)}}
+        </pre>
     </main>
 
 </body>
